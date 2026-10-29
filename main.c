@@ -31,10 +31,11 @@
     };
 
     struct GamePlayer player;
-        
+
     uint8_t pipe_x = 160;
     uint8_t gap_row = 12;
     bool buttonheld = false;
+    bool pipescored = false;
     uint16_t gamestate = STATE_TITLE;
 
     uint16_t score = 0;
@@ -102,14 +103,16 @@
         } else {
             pipe_x = 160;
             gap_row = 1 + (rand() % 12);
+            pipescored = false;
         }
     }
         drawpipes();
     }
 
     void updatescore(void){
-        if(player.x == pipe_x){
-            if(player.y > (gap_row * 8) + 16 && player.y < (gap_row * 8) + 64){
+        if(player.x + 8 == pipe_x){
+            if(player.y > (gap_row * 8) + 16 && player.y < (gap_row * 8) + 64 && pipescored == false){
+            pipescored= true;
             score++;
             } else {
                 gamestate = STATE_GAME_OVER;
@@ -163,8 +166,10 @@
             updatepipes();
             updatescore();
             }else if(gamestate == STATE_GAME_OVER){
-        gotogxy(4,9);
+        
+            gotogxy(4,9);
             gprintf("Game Over              ");
+            HIDE_SPRITES;
             }
             move_sprite(0,player.x,player.y);
             if(gamestate == STATE_PLAYING){
