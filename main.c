@@ -114,6 +114,8 @@
             if(player.y > (gap_row * 8) + 16 && player.y < (gap_row * 8) + 64 && pipescored == false){
             pipescored= true;
             score++;
+            gotogxy(0,0);
+            gprintf("score: %u", (unsigned int)score);
             } else {
                 gamestate = STATE_GAME_OVER;
             }
@@ -150,11 +152,15 @@
                 gotogxy(4,9);
                 gprintf("                       ");
                 gamestate = STATE_PLAYING;
+                gotogxy(0,0);
+            gprintf("score: %u", (unsigned int)score);
             }
             if(!(joypad()& J_A)){
                 buttonheld = false;
             }
             if(gamestate == STATE_READY){
+                gotogxy(0,0);
+            gprintf("score: %u", (unsigned int)score);
             gotogxy(4,9);
             gprintf("Press A to Flip Gravity");
             line(0, 8, 159, 8);      // Draw a line
@@ -174,10 +180,7 @@
             HIDE_SPRITES;
             }
             move_sprite(0,player.x,player.y);
-            if(gamestate == STATE_PLAYING){
-            gotogxy(0,0);
-            gprintf("score: %u", (unsigned int)score);
-            }else if(gamestate == STATE_TITLE){
+            if(gamestate == STATE_TITLE){
             HIDE_SPRITES;
             gotogxy(4,9);
             gprintf("Press Start");
