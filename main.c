@@ -105,7 +105,7 @@
             gap_row = 1 + (rand() % 12);
             pipescored = false;
         }
-    }
+    }   
         drawpipes();
     }
 
@@ -147,6 +147,8 @@
                 }
                 buttonheld = true;
             }else if((joypad() & J_A) && !buttonheld && gamestate == STATE_READY){
+                gotogxy(4,9);
+                gprintf("                       ");
                 gamestate = STATE_PLAYING;
             }
             if(!(joypad()& J_A)){
@@ -160,8 +162,8 @@
             SHOW_SPRITES;
             
             }else if(gamestate == STATE_PLAYING){
-            gotogxy(4,9);
-            gprintf("                       ");
+            
+            
             updateplayer();
             updatepipes();
             updatescore();
