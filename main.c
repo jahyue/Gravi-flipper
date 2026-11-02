@@ -137,6 +137,13 @@
                 }else if (gamestate == STATE_GAME_OVER){
                     player.y = 70;
                     score= 0;
+                    pipe_x = 160;
+                    gap_row = 1 + (rand() % 12);
+                    pipescored = false;
+                    player.gravity = 1;
+                    set_sprite_prop(0, 0);
+                    buttonheld = false;
+                    drawpipes();
                     gamestate = STATE_READY;
                 }
                 
