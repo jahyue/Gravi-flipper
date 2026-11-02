@@ -130,11 +130,16 @@
         drawpipes();
         
         
-        while(1) {
-            if(joypad() & J_START && gamestate == STATE_TITLE){
-                gamestate = STATE_READY;
-        
-            
+        while(1) {  
+            if(joypad() & J_START ){
+                if(gamestate == STATE_TITLE){
+                    gamestate = STATE_READY;
+                }else if (gamestate == STATE_GAME_OVER){
+                    player.y = 70;
+                    score= 0;
+                    gamestate = STATE_READY;
+                }
+                
             }
         
             if((joypad() & J_A) && !buttonheld && gamestate == STATE_PLAYING){
