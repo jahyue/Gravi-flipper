@@ -52,6 +52,21 @@
         SHOW_SPRITES;   
         SHOW_BKG;   
     }
+    void checkcollision(bool *collision){
+        int top = player.y;
+        int bottom = player.y + 8;
+        if(pipe_x < player.x+8 && player.x < pipe_x + 8){
+            if(top < (gap_row * 8) + 16 || bottom > (gap_row * 8) + 64){
+                *collision = true;
+            } else {
+                *collision = false;
+            }
+        }   else
+             {
+                *collision = false;
+            }
+    }
+    
     void updateplayer(void){
         if(gamestate == STATE_PLAYING){
         player.y += player.speed * player.gravity;
@@ -110,16 +125,20 @@
     }
 
     void updatescore(void){
+        bool collision = false;
+         checkcollision(&collision);
+
         if(player.x + 8 == pipe_x){
-            if(player.y > (gap_row * 8) + 16 && player.y < (gap_row * 8) + 64 && pipescored == false){
+            
+            if(!collision && !pipescored){
             pipescored= true;
             score++;
             gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
-            } else {
+            } 
+        }else if (collision){
                 gamestate = STATE_GAME_OVER;
             }
-        }
         
     }
     void main(void) {
@@ -184,6 +203,7 @@
             
             updateplayer();
             updatepipes();
+            
             updatescore();
             }else if(gamestate == STATE_GAME_OVER){
         
