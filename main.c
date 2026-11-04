@@ -10,7 +10,11 @@
     #define STATE_READY     1
     #define STATE_PLAYING   2
     #define STATE_GAME_OVER 3
-
+    void initsounds(void) {
+    NR52_REG = 0x80; 
+    NR50_REG = 0x77;
+    NR51_REG = 0xFF;
+}
     unsigned char player_sprite[] =
     {
         0xFF,0xFF,0x81,0x81,0x81,0x81,0xA5,0xA5,0x81,0x81,0x99,0x99,0x81,0x81,0xFF,0xFF,
@@ -208,12 +212,11 @@
             }else if(gamestate == STATE_GAME_OVER){
         
             gotogxy(4,9);
-            gprintf("Game Over              ");
+            gprintf("Game Over");
             HIDE_SPRITES;
             }
             move_sprite(0,player.x,player.y);
             if(gamestate == STATE_TITLE){
-            HIDE_SPRITES;
             gotogxy(4,9);
             gprintf("Press Start");
             
