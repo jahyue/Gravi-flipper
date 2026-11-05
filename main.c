@@ -15,6 +15,19 @@
     NR50_REG = 0x77;
     NR51_REG = 0xFF;
     }
+    void scoresound(void) {
+        NR21_REG = 0x80; 
+        NR22_REG = 0xF2 ; 
+        NR23_REG = 0x40; 
+        NR24_REG = 0x87; 
+    }
+    void deathsound(void) {
+        NR41_REG = 0x00; 
+        NR42_REG = 0xF3; 
+        NR43_REG = 0x35; 
+        NR44_REG = 0xC0; 
+        
+    }
     unsigned char player_sprite[] =
     {
         0xFF,0xFF,0x81,0x81,0x81,0x81,0xA5,0xA5,0x81,0x81,0x99,0x99,0x81,0x81,0xFF,0xFF,
@@ -59,7 +72,7 @@
         
         set_sprite_data(0,1,player_sprite);
         set_sprite_tile(0,0); 
-        color(BLACK, WHITE, SOLID); // Set foreground, background, and mode
+        color(BLACK, WHITE, SOLID); 
         SHOW_SPRITES;   
         SHOW_BKG;   
     }
@@ -139,16 +152,19 @@
         bool collision = false;
          checkcollision(&collision);
 
-        if(player.x + 8 == pipe_x){
+        if(player.x + 7 == pipe_x){
             
             if(!collision && !pipescored){
             pipescored= true;
             score++;
             gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
+            scoresound();
             } 
         }else if (collision){
+            deathsound();
                 gamestate = STATE_GAME_OVER;
+
             }
         
     }
