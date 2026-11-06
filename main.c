@@ -221,7 +221,7 @@
                 gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
             gotogxy(4,9);
-            gprintf("Press A to Flip Gravity");
+            gprintf("A: Flip Gravity");
             line(0, 8, 159, 8);      // Draw a line
             
             SHOW_SPRITES;
