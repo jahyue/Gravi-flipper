@@ -64,6 +64,7 @@
     uint16_t gamestate = STATE_TITLE;
 
     uint16_t score = 0;
+    uint16_t bestscore = 0;
     void initgame(void){
         player.x = 40;
         player.y = 70;
@@ -75,7 +76,7 @@
         set_sprite_tile(0,0); 
         color(BLACK, WHITE, SOLID); 
         SHOW_SPRITES;   
-        SHOW_BKG;   
+        // SHOW_BKG;   
     }
     void checkcollision(bool *collision){
         int top = player.y;
@@ -158,6 +159,10 @@
             if(!collision && !pipescored){
             pipescored= true;
             score++;
+            if(score > bestscore){
+                bestscore = score;
+            }
+            
             gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
             scoresound();
@@ -181,7 +186,13 @@
         while(1) {  
             if(joypad() & J_START ){
                 if(gamestate == STATE_TITLE ){
-                   
+                 gotogxy(5,7);
+                    gprintf("      ");
+
+                    gotogxy(5,8);
+                    gprintf("       ");
+                    gotogxy(4,13);
+                    gprintf("           ");
                     gamestate = STATE_READY;
                    
                 }else if (gamestate == STATE_GAME_OVER){
@@ -244,6 +255,8 @@
             gprintf("          ");
             gotogxy(5,7);
             gprintf("Score: %u", (unsigned int)score);
+            gotogxy(5,8);
+            gprintf("Best: %u", (unsigned int)bestscore);
             gotogxy(4,10);
             gprintf("Press Start");
             gotogxy(4,12);
