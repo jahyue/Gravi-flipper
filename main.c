@@ -196,6 +196,23 @@
                     gamestate = STATE_READY;
                    
                 }else if (gamestate == STATE_GAME_OVER){
+                      gotogxy(5,5);
+                  gprintf("         ");
+
+                    gotogxy(0,0);
+                gprintf("          ");
+
+            gotogxy(5,7);
+     gprintf("          ");
+
+    gotogxy(5,8);   
+    gprintf("          ");
+
+    gotogxy(4,10);
+    gprintf("           ");
+
+    gotogxy(4,12);
+    gprintf("           ");
                     player.y = 70;
                     score= 0;
                     pipe_x = 160;
@@ -222,7 +239,11 @@
                 }
                 buttonheld = true;
             }else if((joypad() & J_A) && !buttonheld && gamestate == STATE_READY){
-               
+                gotogxy(0,0);
+gprintf("          ");
+
+gotogxy(4,9);
+gprintf("               ");
                 gamestate = STATE_PLAYING;
                 gotogxy(0,0);
                 gprintf("score: %u", (unsigned int)score);
@@ -248,6 +269,8 @@
             
             updatescore();
             }else if(gamestate == STATE_GAME_OVER){
+                  gotogxy(5,5);
+          
         
             gotogxy(5,5);
             gprintf("Game Over");
