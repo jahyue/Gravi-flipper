@@ -269,7 +269,6 @@ gprintf("               ");
             
             updatescore();
             }else if(gamestate == STATE_GAME_OVER){
-                  gotogxy(5,5);
           
         
             gotogxy(5,5);
