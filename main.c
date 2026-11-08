@@ -174,7 +174,7 @@
         initgame();
         gap_row = 1 + (rand() % 12);
 
-        drawpipes();
+        
         
         
         while(1) {  
@@ -218,6 +218,7 @@
                 buttonheld = false;
             }
             if(gamestate == STATE_READY){
+                cls();
                 gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
             gotogxy(4,9);
@@ -235,8 +236,16 @@
             updatescore();
             }else if(gamestate == STATE_GAME_OVER){
         
-            gotogxy(4,9);
+            gotogxy(5,5);
             gprintf("Game Over");
+            gotogxy(0,0);
+            gprintf("          ");
+            gotogxy(5,7);
+            gprintf("Score: %u", (unsigned int)score);
+            gotogxy(4,10);
+            gprintf("Press Start");
+            gotogxy(4,12);
+            gprintf("to Restart");
             HIDE_SPRITES;
             }
             move_sprite(0,player.x,player.y);
