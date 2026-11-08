@@ -59,6 +59,7 @@
     uint8_t pipe_x = 160;
     uint8_t gap_row = 12;
     bool buttonheld = false;
+    bool startpressed = false;
     bool pipescored = false;
     uint16_t gamestate = STATE_TITLE;
 
@@ -179,8 +180,10 @@
         
         while(1) {  
             if(joypad() & J_START ){
-                if(gamestate == STATE_TITLE){
+                if(gamestate == STATE_TITLE ){
+                   
                     gamestate = STATE_READY;
+                   
                 }else if (gamestate == STATE_GAME_OVER){
                     player.y = 70;
                     score= 0;
@@ -208,18 +211,17 @@
                 }
                 buttonheld = true;
             }else if((joypad() & J_A) && !buttonheld && gamestate == STATE_READY){
-                gotogxy(4,9);
-                gprintf("                       ");
+               
                 gamestate = STATE_PLAYING;
                 gotogxy(0,0);
-            gprintf("score: %u", (unsigned int)score);
+                gprintf("score: %u", (unsigned int)score);
             }
             if(!(joypad()& J_A)){
                 buttonheld = false;
             }
             if(gamestate == STATE_READY){
-                cls();
-                gotogxy(0,0);
+                
+            gotogxy(0,0);
             gprintf("score: %u", (unsigned int)score);
             gotogxy(4,9);
             gprintf("A: Flip Gravity");
@@ -250,11 +252,17 @@
             }
             move_sprite(0,player.x,player.y);
             if(gamestate == STATE_TITLE){
-            gotogxy(4,9);
-            gprintf("Press Start");
-            
-            }
-            wait_vbl_done();
+            gotogxy(5,7);
+            gprintf("Gravi-");
 
+            gotogxy(5,8);
+            gprintf("flipper");
+
+            gotogxy(4,13);
+            gprintf("Press Start");
+}            
+            
+            
+            wait_vbl_done();
+}
         }
-    }
